@@ -1,4 +1,5 @@
 #include "TimerOne.h"
+typedef unsigned char u8;
 unsigned long iPeriod = 1000;
 void setup()
 {
@@ -20,6 +21,8 @@ void setup()
   Timer1.pwm(10, 204);  
   
 }
+
+// Timer1超时中断
 void Timer1_Callback()
 {
   // 翻转
@@ -33,9 +36,24 @@ void Timer1_Callback()
     iPeriod = 1000;
   }
 }
+
 void loop() 
 {
+  u8  ucData;
   Serial.println(iPeriod);
   Serial.print("Hello!\r\n");
   delay(1000);
+   while (Serial.available())
+  {
+      
+
+    ucData = Serial.read();
+    Serial.println(ucData, HEX);
+  }
+}
+
+void serialEvent() 
+{
+  
+ 
 }
